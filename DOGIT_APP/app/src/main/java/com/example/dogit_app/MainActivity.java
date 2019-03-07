@@ -1,6 +1,7 @@
 package com.example.dogit_app;
 
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtVwEmail,txtVwPwd;
     private Button btnSignIn;
     private String TAG = "NEVERMIND",email,pwd;
+    Intent inTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         txtVwEmail = findViewById(R.id.txtVwEmail);
         txtVwPwd = findViewById(R.id.txtVwPwd);
         btnSignIn = findViewById(R.id.btnSignIn);
+
+        inTest = new Intent(this,TestActivity.class);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUI(currentUser);
+        updateUI(currentUser);
 
     }
 
@@ -62,13 +66,13 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
+                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
+                            updateUI(null);
                         }
 
                         // ...
@@ -84,15 +88,16 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            Toast.makeText(MainActivity.this,"signInWithEmail:failure",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this,"signInWithEmail:Succesful",Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
+                            startActivity(inTest);
+                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
+                            updateUI(null);
                         }
 
                         // ...
@@ -116,6 +121,29 @@ public class MainActivity extends AppCompatActivity {
             // authenticate with your backend server, if you have one. Use
             // FirebaseUser.getIdToken() instead.
             String uid = user.getUid();
+        }
+    }
+
+    /**
+     * TODO: Programar metodo
+     * @param user
+     */
+    private void updateUI(FirebaseUser user) {
+//        hideProgressDialog();
+        if (user != null) {
+//            Toast.makeText(getApplicationContext(),"No te has logeado",Toast.LENGTH_SHORT).show();
+//            mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
+//            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+//
+//            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+        } else {
+//            Toast.makeText(getApplicationContext(),"Si te has logeado",Toast.LENGTH_SHORT).show();
+//            mStatusTextView.setText(R.string.signed_out);
+//            mDetailTextView.setText(null);
+//
+//            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
         }
     }
 
